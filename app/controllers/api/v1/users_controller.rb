@@ -31,28 +31,20 @@ module Api
       def create
         @user = User.new(user_params)
 
-        respond_to do |format|
-          if @user.save
-            # format.html { redirect_to @user, notice: 'User was successfully created.' }
-            format.json { render :show, status: :created, location: @user }
-          else
-            # format.html { render :new }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
-          end
+        if @user.save
+          render json: @user
+        else
+          render json: @user.errors, status: :unprocessable_entity
         end
       end
 
       # PATCH/PUT /users/1
       # PATCH/PUT /users/1.json
       def update
-        respond_to do |format|
-          if @user.update(user_params)
-            # format.html { redirect_to @user, notice: 'User was successfully updated.' }
-            format.json { render :show, status: :ok, location: @user }
-          else
-            # format.html { render :edit }
-            format.json { render json: @user.errors, status: :unprocessable_entity }
-          end
+        if @user.update(user_params)
+          render json: @user, status: :ok
+        else
+          render json: @user.errors, status: :unprocessable_entity
         end
       end
 
@@ -66,6 +58,25 @@ module Api
         end
       end
 
+      # GET /users/1/skills
+      def skills
+        @user = User.find(params[:user_id])
+        @skills = @user.skills
+        render json: @skills
+      end
+
+      # POST /users/1/skills/new
+      def add_skill
+        @user = User.find(params[:user_id])
+        @skill = @user.skills.find_or_create_by(skill_params)
+
+        if @skill.save
+          render json: @skill, status: :created
+        else
+          render json: @skill.errors, status: :unprocessable_entity
+        end
+      end
+
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_user
@@ -74,7 +85,11 @@ module Api
 
         # Never trust parameters from the scary internet, only allow the white list through.
         def user_params
-          params.require(:user).permit(:name, :password)
+          params.require(:user).permit(:name, :password, {:skill_ids => []})
+        end
+
+        def skill_params
+          params.require(:skill).permit(:name)
         end
     end
   end

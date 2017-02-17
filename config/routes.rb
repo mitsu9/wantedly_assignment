@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   namespace :api, { format: 'json' } do
     namespace :v1 do
       resources :skills
-      resources :users
+      resources :users do
+        get  'skills' => 'users#skills'
+        post 'skills/new' => 'users#add_skill'
+      end
     end
   end
 
