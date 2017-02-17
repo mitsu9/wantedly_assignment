@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       resources :users do
         get  'skills' => 'users#skills'
         post 'skills/new' => 'users#add_skill'
+        post  'skills/:skill_id/like' => 'users#like'
+        get  'skills/:skill_id/liking_users' => 'users#liking_users'
       end
     end
   end

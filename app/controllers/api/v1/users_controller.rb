@@ -78,6 +78,22 @@ module Api
         end
       end
 
+      # POST /users/1/skills/1/like
+      def like
+        @user_skill = UserSkill.find_by(user_id: params[:user_id], skill_id: params[:skill_id])
+        @liking_user_id = params[:user][:user_id]
+        @liking_user = User.find(@liking_user_id)
+        @like = Like.find_or_create_by(:user_skill_id => @user_skill.id, :user_id => @liking_user.id)
+        render json: @like, status: :created
+      end
+
+      # GET /users/1/skills/1/liking_user
+      def liking_users
+        @user_skill = UserSkill.find_by(user_id: params[:user_id], skill_id: params[:skill_id])
+        @liking_users = @user_skill.users
+        render json: @liking_users
+      end
+
       private
         # Use callbacks to share common setup or constraints between actions.
         def set_user
