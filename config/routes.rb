@@ -6,6 +6,12 @@ Rails.application.routes.draw do
       resources :users
     end
   end
+
+  get 'users'      => 'users#index'
+  get 'users/:id'  => 'users#show'
+  get 'skills'     => 'skills#index'
+  get 'skills/:id' => 'skills#show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
