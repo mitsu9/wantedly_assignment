@@ -20,15 +20,15 @@ ActiveRecord::Schema.define(version: 20170216124313) do
   end
 
   create_table "user_skills", force: :cascade do |t|
-    t.integer  "user_id_id"
-    t.integer  "skill_id_id"
+    t.integer  "user_id"
+    t.integer  "skill_id"
     t.integer  "count"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "user_skills", ["skill_id_id"], name: "index_user_skills_on_skill_id_id"
-  add_index "user_skills", ["user_id_id"], name: "index_user_skills_on_user_id_id"
+  add_index "user_skills", ["skill_id"], name: "index_user_skills_on_skill_id"
+  add_index "user_skills", ["user_id"], name: "index_user_skills_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
