@@ -61,8 +61,11 @@ module Api
       # GET /users/1/skills
       def skills
         @user = User.find(params[:user_id])
-        @skills = @user.skills
-        render json: @skills
+        @user_skills = []
+        @user.skills.each { |skill|
+          @user_skills << UserSkill.find_by(user_id: @user.id, skill_id: skill.id)
+        }
+        render 'user_skills/user_skills', formats: 'json', handlers: 'jbuilder'
       end
 
       # POST /users/1/skills/new
