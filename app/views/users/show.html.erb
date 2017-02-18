@@ -10,9 +10,8 @@
       </div>
 
       <div class="skills" ng-repeat="skill in skills">
-        <div>
-          <a href="/skills/{{skill.id}}">{{skill.name}}</a>
-        </div>
+        {{skill.liked}}
+        <a href="/skills/{{skill.id}}">{{skill.name}}</a>
       </div>
 
       <button type="button" class="btn btn-primary">
