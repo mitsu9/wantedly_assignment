@@ -1,13 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class="container" ng-controller="userCtrl">
+  <div class="row">
+    <div class="">
+      <div class="user_name">
+        ユーザ名:<%= @user.name %>
+      </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+      <div class="skill_title">
+        スキル・特徴
+      </div>
 
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
-</p>
+      <div class="skills" ng-repeat="skill in skills">
+        <div>
+          <a href="/skills/{{skill.id}}">{{skill.name}}</a>
+        </div>
+      </div>
 
-<%= link_to 'Back', users_path %>
+      <button type="button" class="btn btn-primary">
+        <%= link_to '一覧に戻る', users_path %>
+      </button>
+    </div>
+  </div>
+</div>
