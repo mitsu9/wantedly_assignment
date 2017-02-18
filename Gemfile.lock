@@ -88,6 +88,7 @@ GEM
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     rack (1.6.5)
+    rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.7.1)
@@ -171,6 +172,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   less-rails
+  rack-cors
   rails (= 4.2.7.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
