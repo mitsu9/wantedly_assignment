@@ -89,7 +89,12 @@ module Api
         @liking_user_id = params[:user][:user_id]
         @liking_user = User.find(@liking_user_id)
         @like = Like.find_or_create_by(:user_skill_id => @user_skill.id, :user_id => @liking_user.id)
-        render json: @like, status: :created
+
+        if @like.save
+          render json: @like, status: :created
+        else
+          render json: @like.errors, status: :unprocessable_entity
+        end
       end
 
       # GET /users/1/skills/1/liking_user

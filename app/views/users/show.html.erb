@@ -3,8 +3,13 @@
     <div class="">
       <div class="login_user_name">
         <% if logged_in? %>
-          Hello, <%= @current_user.name %>さん。
+        <div class="login_user_name" ng-model="login_user"
+        ng-init="login_user={id:'<%= @current_user.id %>', name:'<%= @current_user.name %>'}">
+          Hello, {{login_user.name}}さん。
+        </div>
         <% else %>
+        <div class="login_user_name" ng-model="login_user"
+        ng-init="login_user={id:'0', name:'dummy'}">
           ログインしていません。
           <form novalidate name="loginForm" ng-submit="login()">
             <div>
@@ -19,13 +24,15 @@
               <input type="submit" value="ログインする" ng-disabled="loginForm.$invalid">
             </div>
           </form>
+        </div>
         <% end %>
       </div>
 
       <br>
 
-      <div class="user_name">
-        ここは<%= @user.name %>さんのページです(´・ω・｀)
+      <div class="user_name" ng-model="user"
+      ng-init="user={id:'<%= @user.id %>', name:'<%= @user.name %>'}">
+        ここは{{user.name}}さんのページです(´・ω・｀)
       </div>
 
       <br>
@@ -42,7 +49,9 @@
       </div>
 
       <div class="skills" ng-repeat="skill in skills">
-        {{skill.liked}}
+        <div class="btn btn-primary" ng-click="likeSkill($index)">
+          {{skill.liked}}
+        </div>
         <a href="/skills/{{skill.id}}">{{skill.name}}</a>
       </div>
 

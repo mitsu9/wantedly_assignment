@@ -30,12 +30,26 @@
       });
     }
 
+    function likeSkill(user_id, skill_id, login_user_id) {
+      var $uri = 'http://127.0.0.1:3000/api/v1/users/' + user_id + '/skills/' + skill_id + '/like';
+      var login_user = {"user_id": login_user_id}
+      var params = {"user" : login_user}
+      return $http({
+          method : 'POST',
+          url : $uri,
+          data: params
+      });
+    }
+
     return {
       update: function(id) {
         return updateSkill(id);
       },
       add: function(id, name) {
         return addSkill(id, name);
+      },
+      like: function(id, skill_id, login_user_id) {
+        return likeSkill(id, skill_id, login_user_id);
       }
     }
   });
@@ -69,6 +83,7 @@
       $scope.skills = res.data;
     });
 
+    // スキル追加時の処理
     $scope.addSkill = function(){
       console.log("added")
       SkillService.add(id, $scope.skill).then(function onSuccess(res){
@@ -78,6 +93,25 @@
       });
     };
 
+    // スキルにlikeした際の処理
+    $scope.likeSkill = function(index) {
+      var skill_id = $scope.skills[index].id
+      var user_id = $scope.user.id
+      var login_user_id = $scope.login_user.id
+      console.log(skill_id + ", " + user_id + ", " + login_user_id)
+      SkillService.like(user_id, skill_id, login_user_id).then(
+        function onSuccess(res){
+          console.log("success to like")
+          SkillService.update(id).then(function onSuccess(res){
+            $scope.skills = res.data;
+          })
+        }, function onError(res){
+          console.log(res)
+        }
+      )
+    }
+
+    // ログイン処理
     $scope.login = function() {
       LoginService.login($scope.name, $scope.pass).then(function onSuccess(res){
         console.log("login")
