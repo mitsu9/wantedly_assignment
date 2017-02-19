@@ -9,6 +9,13 @@
         スキル・特徴
       </div>
 
+      <div class="skill_form">
+        <form novalidate name="myForm" ng-submit="addSkill()">
+          <input type="text" name="skill" ng-model="skill" required>
+          <input type="submit" value="追加" ng-disabled="myForm.$invalid">
+        </form>
+      </div>
+
       <div class="skills" ng-repeat="skill in skills">
         {{skill.liked}}
         <a href="/skills/{{skill.id}}">{{skill.name}}</a>
