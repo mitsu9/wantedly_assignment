@@ -48,7 +48,7 @@
         </form>
       </div>
 
-      <div class="skills" ng-repeat="skill in skills">
+      <div class="skills" ng-repeat="skill in skills | orderBy: '-liked'">
         <div class="btn btn-primary" ng-click="likeSkill($index)">
           {{skill.liked}}
         </div>
