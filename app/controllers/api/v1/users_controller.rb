@@ -72,7 +72,9 @@ module Api
       def add_skill
         @user = User.find(params[:user_id])
         @skill = Skill.find_or_create_by(skill_params)
-        @user.skills << @skill
+        if !@user.skills.include?(@skill)
+          @user.skills << @skill
+        end
 
         if @skill.save
           render json: @skill, status: :created
