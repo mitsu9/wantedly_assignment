@@ -96,9 +96,15 @@
     // スキルにlikeした際の処理
     $scope.likeSkill = function(index) {
       var skill_id = $scope.skills[index].id
+      var user_id = $scope.user.id
       var login_user_id = $scope.login_user.id
-      if (login_user_id == 0) return
-      SkillService.like($scope.user.id, skill_id, login_user_id).then(
+
+      if (login_user_id == 0 || user_id == login_user_id) {
+        // TODO: 何かアラート出す
+        return
+      }
+
+      SkillService.like(user_id, skill_id, login_user_id).then(
         function onSuccess(res){
           console.log("success to like")
           SkillService.update(id).then(function onSuccess(res){
