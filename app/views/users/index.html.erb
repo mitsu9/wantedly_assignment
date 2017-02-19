@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="">
+      ユーザ一覧
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.name %></td>
+              <td>
+                <a class="btn btn-primary" href="http://127.0.0.1:3000/users/<%= user.id %>">詳細</a>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+
+  namespace :api, { format: 'json' } do
+    namespace :v1 do
+      resources :skills
+      resources :users do
+        get  'skills' => 'users#skills'
+        post 'skills/new' => 'users#add_skill'
+        post  'skills/:skill_id/like' => 'users#like'
+        get  'skills/:skill_id/liking_users' => 'users#liking_users'
+      end
+    end
+  end
+
+  get 'users'        => 'users#index'
+  get 'users/:id'    => 'users#show'
+  post 'users/login' => 'users#login'
+  get 'skills'       => 'skills#index'
+  get 'skills/:id'   => 'skills#show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

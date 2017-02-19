@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id_id: 
+  skill_id_id: 
+  count: 1
+
+two:
+  user_id_id: 
+  skill_id_id: 
+  count: 1
